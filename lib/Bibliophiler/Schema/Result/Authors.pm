@@ -27,5 +27,10 @@ __PACKAGE__->many_to_many(
   'books' , 'author_books' , 'book'
 );
 
+sub name {
+  my( $self ) = @_;
+  return $self->fname . ' ' . $self->lname;
+}
+
 1;
 
