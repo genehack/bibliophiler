@@ -29,5 +29,25 @@ __PACKAGE__->many_to_many(
   'authors' , 'author_books' , 'author'
 );
 
+__PACKAGE__->has_many(
+  'user_book_tags' ,
+  'Bibliophiler::Schema::Result::UserBookTags' ,
+  { 'foreign.book_id' => 'self.id' } ,
+);
+
+__PACKAGE__->many_to_many(
+  'tags' , 'user_book_tags' , 'tag'
+);
+
+__PACKAGE__->has_many(
+  'readings' ,
+  'Bibliophiler::Schema::Result::Readings' ,
+  { 'foreign.book_id' => 'self.id' } ,
+);
+
+__PACKAGE__->many_to_many(
+  'readers' , 'readings' , 'reader'
+);
+
 1;
 
