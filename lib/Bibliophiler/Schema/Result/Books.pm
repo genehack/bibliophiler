@@ -16,7 +16,6 @@ __PACKAGE__->add_columns(
 );
 
 __PACKAGE__->set_primary_key( 'id' );
-__PACKAGE__->add_unique_constraint( 'title_unique' , [ 'title' ]);
 __PACKAGE__->add_unique_constraint( 'isbn_unique'  , [ 'isbn'  ]);
 
 __PACKAGE__->has_many(
