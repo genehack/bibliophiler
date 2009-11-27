@@ -16,13 +16,13 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key( 'author_id' , 'book_id' );
 
 __PACKAGE__->belongs_to(
-  'author_id' ,
+  'author' ,
   'Bibliophiler::Schema::Result::Authors' ,
   { 'foreign.id' => 'self.author_id' } ,
 );
 
 __PACKAGE__->belongs_to(
-  'book_id' ,
+  'book' ,
   'Bibliophiler::Schema::Result::Books' ,
   { 'foreign.id' => 'self.book_id' } ,
 );
