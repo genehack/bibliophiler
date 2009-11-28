@@ -18,7 +18,7 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key( 'id' );
 
-__PACKAGE__->add_unique_constraint( 'name_unique' , [ 'lname' , 'fname' ] );
+__PACKAGE__->add_unique_constraint([ 'lname' , 'fname' ]);
 
 __PACKAGE__->has_many(
   'author_books' ,

@@ -17,7 +17,7 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key( 'id' );
 
-__PACKAGE__->add_unique_constraint( 'name_unique' , [ 'name' ]);
+__PACKAGE__->add_unique_constraint([ 'name' ]);
 
 __PACKAGE__->has_many(
   'user_book_tags' ,

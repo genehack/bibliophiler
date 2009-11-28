@@ -19,7 +19,7 @@ __PACKAGE__->add_columns(
 
 __PACKAGE__->set_primary_key( 'id' );
 
-__PACKAGE__->add_unique_constraint( 'isbn_unique'  , [ 'isbn'  ]);
+__PACKAGE__->add_unique_constraint([ 'isbn'  ]);
 
 __PACKAGE__->has_many(
   'author_books' ,
