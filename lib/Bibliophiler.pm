@@ -14,9 +14,17 @@ use Catalyst::Runtime 5.80;
 #                 directory
 
 use parent qw/Catalyst/;
-use Catalyst qw/-Debug
-                ConfigLoader
-                Static::Simple/;
+use Catalyst qw/
+                 -Debug
+                 ConfigLoader
+                 Static::Simple
+
+                 Authentication
+                 Authorization::Roles
+                 Session
+                 Session::State::Cookie
+                 Session::Store::FastMmap
+/;
 our $VERSION = '0.01';
 
 # Configure the application.
@@ -28,7 +36,34 @@ our $VERSION = '0.01';
 # with an external configuration file acting as an override for
 # local deployment.
 
-__PACKAGE__->config( name => 'Bibliophiler' );
+__PACKAGE__->config(
+  name => 'Bibliophiler' ,
+  'View::TT' => {
+    INCLUDE_PATH => [
+      __PACKAGE__->path_to( 'root' ) ,
+      __PACKAGE__->path_to( 'root' , 'lib'  ) ,
+    ] ,
+    TEMPLATE_EXTENSION => '.tt' ,
+    CATALYST_VAR       => 'c' ,
+    TIMER              => 0 ,
+    WRAPPER            => 'site/wrapper.tt' ,
+  } ,
+  'Plugin::Authentication' => {
+    default => {
+      credential => {
+        class         => 'Password' ,
+        password_type => 'crypted' ,
+      } ,
+      store => {
+        class                     => 'DBIx::Class' ,
+        user_model                => 'Bibliophiler::Schema::Result::Users' ,
+        role_relation             => 'roles' ,
+        role_field                => 'role' ,
+        use_userdata_from_session => 0 ,
+      } ,
+    } ,
+  } ,
+);
 
 # Start the application
 __PACKAGE__->setup();
