@@ -1,0 +1,25 @@
+#! /opt/perl/bin/perl
+
+use strict;
+use warnings;
+use 5.010;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Bibliophiler::Util;
+
+my $db = Bibliophiler::Util->db_path;
+
+my $db_exists = 0;
+my $verb      = 'Created';
+
+if ( -e $db ) {
+  $db_exists = 1;
+  $verb      = 'Reset';
+}
+
+my $schema = Bibliophiler::Util->get_schema;
+$schema->deploy({ add_drop_table => $db_exists });
+
+printf "$verb db\n";
