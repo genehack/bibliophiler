@@ -2,10 +2,12 @@ package Bibliophiler::Schema::Result::Authors;
 
 use strict;
 use warnings;
+use 5.010;
 
 use base 'DBIx::Class';
 
 __PACKAGE__->load_components( 'InflateColumn::DateTime' , 'TimeStamp' , 'Core' );
+
 __PACKAGE__->table( 'authors' );
 
 __PACKAGE__->add_columns(
@@ -15,6 +17,7 @@ __PACKAGE__->add_columns(
 );
 
 __PACKAGE__->set_primary_key( 'id' );
+
 __PACKAGE__->add_unique_constraint( 'name_unique' , [ 'lname' , 'fname' ] );
 
 __PACKAGE__->has_many(
@@ -23,14 +26,11 @@ __PACKAGE__->has_many(
   { 'foreign.author_id' => 'self.id' } ,
 );
 
-__PACKAGE__->many_to_many(
-  'books' , 'author_books' , 'book'
-);
+__PACKAGE__->many_to_many( 'books' , 'author_books' , 'book' );
 
 sub name {
   my( $self ) = @_;
-  return $self->fname . ' ' . $self->lname;
+  return sprintf "%s %s" , $self->fname , $self->lname;
 }
 
 1;
-

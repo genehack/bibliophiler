@@ -2,10 +2,12 @@ package Bibliophiler::Schema::Result::UserRoles;
 
 use strict;
 use warnings;
+use 5.010;
 
 use base 'DBIx::Class';
 
 __PACKAGE__->load_components( 'InflateColumn::DateTime' , 'TimeStamp' , 'Core' );
+
 __PACKAGE__->table( 'user_roles' );
 
 __PACKAGE__->add_columns(
@@ -28,4 +30,3 @@ __PACKAGE__->belongs_to(
 );
 
 1;
-

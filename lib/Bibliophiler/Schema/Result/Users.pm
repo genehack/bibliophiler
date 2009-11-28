@@ -2,10 +2,12 @@ package Bibliophiler::Schema::Result::Users;
 
 use strict;
 use warnings;
+use 5.010;
 
 use base 'DBIx::Class';
 
 __PACKAGE__->load_components( 'InflateColumn::DateTime' , 'TimeStamp' , 'Core' );
+
 __PACKAGE__->table( 'users' );
 
 __PACKAGE__->add_columns(
@@ -16,6 +18,7 @@ __PACKAGE__->add_columns(
 );
 
 __PACKAGE__->set_primary_key( 'id' );
+
 __PACKAGE__->add_unique_constraint( 'username_unique' , [ 'username' ] );
 
 __PACKAGE__->has_many(
@@ -30,9 +33,7 @@ __PACKAGE__->has_many(
   { 'foreign.user_id' => 'self.id' } ,
 );
 
-__PACKAGE__->many_to_many(
-  'books' , 'user_book_tags' , 'book'
-);
+__PACKAGE__->many_to_many( 'books' , 'user_book_tags' , 'book' );
 
 __PACKAGE__->has_many(
   'user_roles' ,
@@ -40,9 +41,6 @@ __PACKAGE__->has_many(
   { 'foreign.user_id' => 'self.id' } ,
 );
 
-__PACKAGE__->many_to_many(
-  'roles' , 'user_roles' , 'role'
-);
+__PACKAGE__->many_to_many( 'roles' , 'user_roles' , 'role' );
 
 1;
-

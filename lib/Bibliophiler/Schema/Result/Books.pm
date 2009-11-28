@@ -2,10 +2,12 @@ package Bibliophiler::Schema::Result::Books;
 
 use strict;
 use warnings;
+use 5.010;
 
 use base 'DBIx::Class';
 
 __PACKAGE__->load_components( 'InflateColumn::DateTime' , 'TimeStamp' , 'Core' );
+
 __PACKAGE__->table( 'books' );
 
 __PACKAGE__->add_columns(
@@ -16,6 +18,7 @@ __PACKAGE__->add_columns(
 );
 
 __PACKAGE__->set_primary_key( 'id' );
+
 __PACKAGE__->add_unique_constraint( 'isbn_unique'  , [ 'isbn'  ]);
 
 __PACKAGE__->has_many(
@@ -24,9 +27,7 @@ __PACKAGE__->has_many(
   { 'foreign.book_id' => 'self.id' } ,
 );
 
-__PACKAGE__->many_to_many(
-  'authors' , 'author_books' , 'author'
-);
+__PACKAGE__->many_to_many( 'authors' , 'author_books' , 'author' );
 
 __PACKAGE__->has_many(
   'user_book_tags' ,
@@ -34,9 +35,7 @@ __PACKAGE__->has_many(
   { 'foreign.book_id' => 'self.id' } ,
 );
 
-__PACKAGE__->many_to_many(
-  'tags' , 'user_book_tags' , 'tag'
-);
+__PACKAGE__->many_to_many( 'tags' , 'user_book_tags' , 'tag' );
 
 __PACKAGE__->has_many(
   'readings' ,
@@ -44,9 +43,6 @@ __PACKAGE__->has_many(
   { 'foreign.book_id' => 'self.id' } ,
 );
 
-__PACKAGE__->many_to_many(
-  'readers' , 'readings' , 'reader'
-);
+__PACKAGE__->many_to_many( 'readers' , 'readings' , 'reader' );
 
 1;
-
