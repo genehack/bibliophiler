@@ -1,0 +1,26 @@
+#! /opt/perl/bin/perl
+
+use strict;
+use warnings;
+use 5.010;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Bibliophiler::Util;
+
+my $rs = Bibliophiler::Util->get_resultset( 'Books' );
+
+my $format_string = "%3s %-50s %5s %15s\n";
+
+printf $format_string , 'ID' , 'TITLE' , 'PAGES' , 'ISBN';
+
+foreach( $rs->search() ) {
+  my $pages = $_->pages || '';
+  my $isbn  = $_->isbn  || '';
+
+  printf $format_string , $_->id , $_->title , $pages , $isbn;
+}
+
+
+

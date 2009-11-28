@@ -1,0 +1,26 @@
+#! /opt/perl/bin/perl
+
+use strict;
+use warnings;
+use 5.010;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Bibliophiler::Util;
+
+my $rs = Bibliophiler::Util->get_resultset( 'Books' );
+
+foreach my $book ( $rs->search() ) {
+  print $book->title;
+
+  my $authors = join ', ' , map { $_->name } $book->authors;
+  print " by $authors" if $authors;
+
+  my $tags = join ', ' , map { $_->name } $book->tags;
+  print " tagged as $tags" if $tags;
+
+  printf " (%3d pages)" , $book->pages if $book->pages;
+
+  print "\n";
+}

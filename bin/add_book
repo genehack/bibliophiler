@@ -1,0 +1,20 @@
+#! /opt/perl/bin/perl
+
+use strict;
+use warnings;
+use 5.010;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Bibliophiler::Util;
+
+my %create_args;
+$create_args{title} = shift or die "Need title";
+$create_args{pages} = shift;
+$create_args{isbn}  = shift;
+
+my $rs   = Bibliophiler::Util->get_resultset( 'Books' );
+my $book = $rs->create( \%create_args );
+
+printf "Created book '%s'\n" , $book->title;

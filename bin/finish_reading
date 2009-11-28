@@ -1,0 +1,26 @@
+#! /opt/perl/bin/perl
+
+use strict;
+use warnings;
+use 5.010;
+
+use DateTime;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Bibliophiler::Util;
+
+my $id = shift or die "Need reading ID";
+
+my $rs = Bibliophiler::Util->get_resultset( 'Readings' );
+
+my $reading = $rs->find({ id => $id })
+  or die "Can't find reading with ID $id";
+
+$reading->update({ finish => DateTime->now });
+
+printf "User %s finished reading book %s at %s\n" ,
+  $reading->reader->username ,
+  $reading->book->title ,
+  $reading->finish;

@@ -1,0 +1,22 @@
+#! /opt/perl/bin/perl
+
+use strict;
+use warnings;
+use 5.010;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Bibliophiler::Util;
+
+my $rs = Bibliophiler::Util->get_resultset( 'Tags' );
+
+my $format_string = "%3s %-50s\n";
+printf $format_string , 'ID' , 'NAME';
+
+foreach( $rs->search ) {
+  printf $format_string , $_->id , $_->name;
+}
+
+
+

@@ -1,0 +1,19 @@
+#! /opt/perl/bin/perl
+
+use strict;
+use warnings;
+use 5.010;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Bibliophiler::Util;
+
+my %create_args;
+$create_args{username} = shift or die "Need username";
+$create_args{password} = shift or die "Need password";
+
+my $rs   = Bibliophiler::Util->get_resultset( 'Users' );
+my $user = $rs->create( \%create_args );
+
+printf "Created user '%s'\n" , $user->username;

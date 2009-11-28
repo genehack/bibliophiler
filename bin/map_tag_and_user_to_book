@@ -1,0 +1,33 @@
+#! /opt/perl/bin/perl
+
+use strict;
+use warnings;
+use 5.010;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Bibliophiler::Util;
+
+my $schema = Bibliophiler::Util->get_schema;
+
+my $users_rs          = $schema->resultset( 'Users'        );
+my $books_rs          = $schema->resultset( 'Books'        );
+my $tags_rs           = $schema->resultset( 'Tags'         );
+my $user_book_tags_rs = $schema->resultset( 'UserBookTags' );
+
+my $user_id = shift or die "Need author ID";
+my $book_id = shift or die "Need book ID";
+my $tag_id  = shift or die "Need tag ID";
+
+my $user = $users_rs->find( $user_id ) or die "Can't find author";
+my $book = $books_rs->find( $book_id ) or die "Can't find book";
+my $tag  = $tags_rs->find( $tag_id   ) or die "Can't find tag";
+
+$user_book_tags_rs->create({
+  user_id => $user_id ,
+  book_id => $book_id ,
+  tag_id  => $tag_id  ,
+});
+
+printf "Mapped user %s to tag %s to book %s" , $user->username , $tag->name , $book->title;

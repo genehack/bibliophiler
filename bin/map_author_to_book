@@ -1,0 +1,29 @@
+#! /opt/perl/bin/perl
+
+use strict;
+use warnings;
+use 5.010;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Bibliophiler::Util;
+
+my $schema = Bibliophiler::Util->get_schema;
+
+my $authors_rs      = $schema->resultset( 'Authors' );
+my $books_rs        = $schema->resultset( 'Books'   );
+my $author_books_rs = $schema->resultset( 'AuthorBooks' );
+
+my $author_id = shift or die "Need author ID";
+my $book_id   = shift or die "Need book ID";
+
+my $author = $authors_rs->find( $author_id ) or die "Can't find author";
+my $book   = $books_rs->find( $book_id )     or die "Can't find book";
+
+$author_books_rs->create({
+  author_id => $author_id  ,
+  book_id   => $book_id    ,
+});
+
+printf "Mapped author %s to book %s" , $author->name , $book->title;

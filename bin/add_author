@@ -1,0 +1,20 @@
+#! /opt/perl/bin/perl
+
+use strict;
+use warnings;
+use 5.010;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Bibliophiler::Util;
+
+my %create_args;
+$create_args{fname} = shift or die "Need first name";
+$create_args{lname} = shift or die "Need last name";
+
+my $rs     = Bibliophiler::Util->get_resultset( 'Authors' );
+my $author = $rs->create( \%create_args )
+  or die "Failed to create author";
+
+printf "Created author '%s'\n" , $author->name;

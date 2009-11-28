@@ -1,0 +1,33 @@
+#! /opt/perl/bin/perl
+
+use strict;
+use warnings;
+use 5.010;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Bibliophiler::Util;
+
+my $format_string = "%3s %-20s %-50s %20s %20s %20s\n";
+printf $format_string , 'ID' , 'USERNAME' , 'TITLE' , 'START' , 'FINISH' , 'DURATION';
+
+my $rs = Bibliophiler::Util->get_resultset( 'Readings' );
+
+foreach my $reading ( $rs->search() ) {
+  my $duration = '';
+  if ( $reading->start and $reading->finish ) {
+    $duration = $reading->finish - $reading->start;
+    $duration = $duration->days . ' days'
+  }
+
+  my $finish = $reading->finish || '';
+
+  printf $format_string ,
+    $reading->id ,
+    $reading->reader->username ,
+    $reading->book->title ,
+    $reading->start ,
+    $finish ,
+    $duration;
+}

@@ -1,0 +1,32 @@
+#! /opt/perl/bin/perl
+
+use strict;
+use warnings;
+use 5.010;
+
+use DateTime;
+
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+
+use Bibliophiler::Util;
+
+my $schema = Bibliophiler::Util->get_schema;
+
+my $users_rs    = $schema->resultset( 'Users'    );
+my $books_rs    = $schema->resultset( 'Books'    );
+my $readings_rs = $schema->resultset( 'Readings' );
+
+my $user_id = shift or die "Need author ID";
+my $book_id = shift or die "Need book ID";
+
+my $user = $users_rs->find( $user_id ) or die "Can't find author";
+my $book = $books_rs->find( $book_id ) or die "Can't find book";
+
+my $reading = $readings_rs->create({
+  user_id => $user_id ,
+  book_id => $book_id ,
+  start   => DateTime->now(),
+});
+
+printf "User %s started reading book %s at %s" , $user->username , $book->title , $reading->start;
