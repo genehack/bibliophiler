@@ -10,6 +10,8 @@ __PACKAGE__->load_components( 'InflateColumn::DateTime' , 'TimeStamp' , 'Core' )
 
 __PACKAGE__->table( 'users' );
 
+__PACKAGE__->resultset_class( 'Bibliophiler::Schema::ResultSet::Users' );
+
 __PACKAGE__->add_columns(
   'id'            => { data_type => 'INTEGER'  , is_nullable => 0 , size => undef , is_auto_increment => 1 } ,
   'username'      => { data_type => 'TEXT'     , is_nullable => 0 , size => undef } ,
