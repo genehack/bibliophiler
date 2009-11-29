@@ -1,1 +1,30 @@
-registration form goes here
+[% title = 'create an account ' %]
+[% IF message %]
+<div style="background: red; color: white">
+  [% FOREACH m IN message %]
+    [% m %]<br>
+  [% END %]
+</div>
+[% END %]
+<h1>[% title %]</h1>
+<form method=post action=[% c.uri_for( '/register' ) %]>
+  <table>
+    <tr>
+      <td style="text-align:right"><label for=email>email</td>
+      <td><input type=text id=email name=email value=[% email %]></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><label for=password1>password</td>
+      <td><input type=password id=password1 name=password1></td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><label for=password2>repeat password</td>
+      <td><input type=password id=password2 name=password2></td>
+    </tr>
+    <tr>
+      <td colspan=2 style="text-align:center">
+        <input type=submit id=create value="create account"/>
+      </td>
+    </tr>
+  </table>
+</form>

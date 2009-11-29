@@ -22,7 +22,23 @@ Catalyst Controller.
 =cut
 
 sub index :Path :Args(0) {
-    my ( $self, $c ) = @_;
+  my( $self , $c ) = @_;
+
+  if ( $c->request->method eq 'POST' ) {
+    my $params = $c->request->body_params;
+
+    my $user;
+    eval { $user = $c->model( 'DB' )->resultset( 'Users' )->create_new_user( %$params ) };
+    if ( $@ ) {
+      $c->stash->{message} = $@;
+      $c->detach;
+    }
+
+    $c->stash->{username} = $user->username;
+    $c->stash->{message}  = 'Account created. Please log in.';
+
+    $c->forward( 'Bibliophiler::Controller::Root' , 'index' );
+  }
 }
 
 
