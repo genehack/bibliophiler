@@ -22,6 +22,8 @@ requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'Catalyst::Plugin::Session::Store::FastMmap';
 requires 'Catalyst::Authentication::Store::DBIx::Class';
 
+requires 'DBIx::Class::TimeStamp';
+
 catalyst;
 
 install_script glob('script/*.pl');
