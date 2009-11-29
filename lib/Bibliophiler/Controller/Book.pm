@@ -2,7 +2,7 @@ package Bibliophiler::Controller::Book;
 
 use strict;
 use warnings;
-use parent 'Catalyst::Controller';
+use parent 'Catalyst::Controller::HTML::FormFu';
 
 =head1 NAME
 
@@ -10,12 +10,23 @@ Bibliophiler::Controller::Book
 
 =cut
 
-sub add :Path {
+sub add :Local :FormConfig {
   my( $self , $c ) = @_;
 
-  $c->stash->{template} = 'book/add.tt';
+  my $form = $c->stash->{form};
 
-  if ( $c->request->method eq 'POST' ) {
+  if ( $form->submitted_and_valid ) {
+
+    my $value;
+
+    if ( $value = $form->param( 'submit_now' )) {
+    }
+    elsif ( $value = $form->param( 'submit_later' )) {
+    }
+    else { $value = 'wtf' }
+
+    $c->response->body( $value );
+    $c->detach;
 
   }
 }

@@ -1,0 +1,43 @@
+---
+auto_id: '%n'
+auto_fieldset:
+  legend: add a book
+
+default_args:
+  elements:
+    Text:
+      size: 50
+    Submit:
+      retain_default: 1
+      force_default: 0
+
+elements:
+  - type: Text
+    name: title
+    label: Book title
+    constraints:
+      - Required
+  - type: Text
+    name: authors
+    label: Book author(s)
+    comment: First name first; use commas to separate multiple authors
+    constraints:
+      - Required
+  - type: Text
+    name: pages
+    label: Page count
+  - type: Text
+    name: isbn
+    label: ISBN
+  - type: Text
+    name: tags
+    label: Tags
+    comment: Use commas to separate multiple tags
+  - type: Multi
+    elements:
+      - type: Submit
+        name: submit_now
+        value: read now
+      - type: Submit
+        name: submit_later
+        value: read later
