@@ -8,8 +8,13 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 
 use Bibliophiler::Util;
+use File::Basename;
+use File::Path             qw/ make_path /;
 
 my $db = Bibliophiler::Util->db_path;
+
+my $path = dirname( $db );
+make_path( $path );
 
 my $db_exists = 0;
 my $verb      = 'Created';
