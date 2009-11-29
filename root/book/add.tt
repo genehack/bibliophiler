@@ -3,27 +3,32 @@
 <form method=post action=[% c.uri_for( '/book/add' ) %]>
   <table>
     <tr>
-      <td style="text-align:right"><label for=title>title</td>
+      <td style="text-align:right"><label for=title>title</label></td>
       <td><input type=text id=title name=title></td>
+      <td>&nbsp;</td>
     </tr>
     <tr>
-      <td style="text-align:right"><label for=author>author</td>
+      <td style="text-align:right"><label for=author>authors</label></td>
       <td><input type=text id=author name=author></td>
+      <td>first name first, comma-delimited</td>
     </tr>
     <tr>
-      <td style="text-align:right"><label for=isbn>isbn</td>
-      <td><input type=text id=isbn name=isbn></td>
-    </tr>
-    <tr>
-      <td style="text-align:right"><label for=pages>pages</td>
+      <td style="text-align:right"><label for=pages>pages</label></td>
       <td><input type=text id=pages name=pages></td>
+      <td>&nbsp;</td>
     </tr>
     <tr>
-      <td style="text-align:right"><label for=tags>tags (comma-delimited)</td>
+      <td style="text-align:right"><label for=isbn>isbn</label></td>
+      <td><input type=text id=isbn name=isbn></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td style="text-align:right"><label for=tags>tags</label></td>
       <td><input type=text id=tags name=tags></td>
+      <td>comma-delimited</td>
     </tr>
     <tr>
-      <td colspan=2 style="text-align:center">
+      <td colspan=3 style="text-align:center">
         <input type=submit id=read_now   value="add book and start reading now"/>
         <input type=submit id=read_later value="add book and save to read another day"/>
       </td>
