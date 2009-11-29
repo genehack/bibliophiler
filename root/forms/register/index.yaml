@@ -1,0 +1,32 @@
+---
+auto_id: '%n'
+auto_fieldset:
+  legend: create an account
+
+default_args:
+  elements:
+    Text:
+      size: 50
+    Submit:
+      retain_default: 1
+      force_default: 0
+
+elements:
+  - type: Text
+    name: username
+    label: username
+  - type: Text
+    name: email
+    label: email address
+  - type: Text
+    name: email2
+    label: confirm email address
+  - type: Password
+    name: password
+    label: password
+  - type: Password
+    name: password2
+    label: confirm password
+  - type: Submit
+    name: submit
+    value: create account

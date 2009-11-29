@@ -2,7 +2,7 @@ package Bibliophiler::Controller::Register;
 
 use strict;
 use warnings;
-use parent 'Catalyst::Controller';
+use parent 'Catalyst::Controller::HTML::FormFu';
 
 =head1 NAME
 
@@ -23,10 +23,12 @@ Catalyst Controller.
 
 use Digest;
 
-sub index :Path :Args(0) {
+sub index :Path :FormConfig {
   my( $self , $c ) = @_;
 
-  if ( $c->request->method eq 'POST' ) {
+  my $form = $c->stash->{form};
+
+  if ( $form->submitted_and_valid ) {
     my $params = $c->request->body_params;
 
     my $username = $params->{email};
