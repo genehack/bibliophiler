@@ -40,13 +40,13 @@ __PACKAGE__->config(
   name => 'Bibliophiler' ,
   'View::TT' => {
     INCLUDE_PATH => [
+      __PACKAGE__->path_to( 'inc'  ) ,
       __PACKAGE__->path_to( 'root' ) ,
-      __PACKAGE__->path_to( 'root' , 'lib'  ) ,
     ] ,
     TEMPLATE_EXTENSION => '.tt' ,
     CATALYST_VAR       => 'c' ,
     TIMER              => 0 ,
-    WRAPPER            => 'site/wrapper.tt' ,
+    WRAPPER            => 'wrapper.tt' ,
   } ,
   'Plugin::Authentication' => {
     default => {
