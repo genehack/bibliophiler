@@ -1,0 +1,12 @@
+[% IF message %]
+<div id=message style="background: red; color: white">
+  [% message %]
+</div>
+[% END %]
+[% IF c.user_exists %]
+  you're logged in as <strong>[% c.user.get( 'username' ) %]</strong>
+  <br>
+  <a href="[% c.uri_for( 'book/add' ) %]">[ add a book ]</a>
+  <a href="[% c.uri_for( '/logout' ) %]">[ logout ]</a>
+
+[% END %]

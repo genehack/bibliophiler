@@ -1,11 +1,5 @@
 [% title = 'create an account ' %]
-[% IF message %]
-<div style="background: red; color: white">
-  [% FOREACH m IN message %]
-    [% m %]<br>
-  [% END %]
-</div>
-[% END %]
+[% disable_registration_and_login_forms = 1 %]
 <h1>[% title %]</h1>
 <form method=post action=[% c.uri_for( '/register' ) %]>
   <table>

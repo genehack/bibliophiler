@@ -1,0 +1,27 @@
+          [% IF c.user %]
+          <div style="text-align:right;">
+            <h2>author cloud</h2>
+
+            <h2>tag cloud</h2>
+
+          </div>
+          [% ELSIF ! disable_registration_and_login_forms %]
+          <form method=post action=[% c.uri_for( '/login' ) %] style="background: blue; color: white; padding: 30px; margin-bottom: 50px;">
+            <div style="font-size: 2em; padding-bottom: 10px">login to your account</div>
+            <table>
+              <tr>
+                <td style="padding-bottom: 10px; text-align:right"><label for=username>email</label></td>
+                <td style="padding-bottom: 10px"><input type=text id=username name=username value="[% username %]"></td>
+              </tr>
+              <tr>
+                <td style="padding-bottom: 10px"><label for=password>password</label></td>
+                <td style="padding-bottom: 10px"><input type=password id=password name=password></td>
+              </tr>
+              <tr>
+                <td colspan=2 style="padding-bottom: 10px; text-align:center"><input type=submit name=login value=login></td>
+              </tr>
+            </table>
+          </form>
+
+          <a class=box href="[% c.uri_for( '/register' ) %]">register for an account</a>
+          [% END %]
