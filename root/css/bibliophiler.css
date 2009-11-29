@@ -1,0 +1,20 @@
+html { font-family: 'Helvetica'; }
+
+#header, #main {
+   padding: 20px;
+}
+
+#header h1 {
+   font-size: 4em;
+   text-decoration: underline;
+}
+
+#footer { padding: 0 20px; }
+
+a.box {
+   background: #3c3;
+   color: white;
+   font-size: 2em;
+   padding: 30px;
+   text-decoration: none;
+}
