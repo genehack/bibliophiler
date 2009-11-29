@@ -45,4 +45,17 @@ __PACKAGE__->has_many(
 
 __PACKAGE__->many_to_many( 'roles' , 'user_roles' , 'role' );
 
+sub new {
+  my( $class , $args ) = @_;
+
+  if ( exists $args->{username} and Mail::VRFY::CheckAddress(
+    addr   => $args->{username} ,
+    method => 'syntax'  ,
+  )) {
+    die 'Invalid email address';
+  }
+
+  return $class->next::method( $args );
+}
+
 1;
