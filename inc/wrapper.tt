@@ -5,6 +5,7 @@
     <meta charset=utf-8>
     <link rel=stylesheet href=/css/stickyfoot.css   type=text/css media=screen>
     <link rel=stylesheet href=/css/bibliophiler.css type=text/css media=screen>
+    <link rel=stylesheet href=/css/form.css         type=text/css media=screen>
     <link rel=icon       href=/images/favicon.ico   type=image/vnd.microsoft.icon>
   </head>
   <body>
