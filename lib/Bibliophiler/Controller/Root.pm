@@ -27,10 +27,13 @@ Bibliophiler::Controller::Root - Root Controller for Bibliophiler
 =cut
 
 sub index :Path :Args(0) {
-    my ( $self, $c ) = @_;
+  my ( $self, $c ) = @_;
 
-    # Hello World
-    $c->response->body( $c->welcome_message );
+  if ( $c->user ) {
+    $c->response->body( 'Logged in' );
+  }
+  else {
+  }
 }
 
 sub default :Path {

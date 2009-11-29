@@ -1,0 +1,5 @@
+[% IF c.user %]
+you're logged in
+[% ELSE %]
+<a href="[% c.uri_for( '/register' ) %]">register for an account</a>
+[% END %]
