@@ -40,8 +40,8 @@ __PACKAGE__->config(
   name => 'Bibliophiler' ,
   'View::TT' => {
     INCLUDE_PATH => [
-      __PACKAGE__->path_to( 'inc'  ) ,
-      __PACKAGE__->path_to( 'root' ) ,
+      __PACKAGE__->path_to( 'templates' ) ,
+      __PACKAGE__->path_to( 'root'      ) ,
     ] ,
     TEMPLATE_EXTENSION => '.tt' ,
     CATALYST_VAR       => 'c' ,
