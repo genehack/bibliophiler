@@ -2,24 +2,9 @@ package Bibliophiler::Controller::Register;
 
 use strict;
 use warnings;
+use 5.010;
+
 use parent 'Catalyst::Controller::HTML::FormFu';
-
-=head1 NAME
-
-Bibliophiler::Controller::Register - Catalyst Controller
-
-=head1 DESCRIPTION
-
-Catalyst Controller.
-
-=head1 METHODS
-
-=cut
-
-
-=head2 index
-
-=cut
 
 use Digest;
 
@@ -57,17 +42,5 @@ sub index :Path :FormConfig {
     $c->forward( 'Bibliophiler::Controller::Root' , 'index' );
   }
 }
-
-
-=head1 AUTHOR
-
-genehack
-
-=head1 LICENSE
-
-This library is free software. You can redistribute it and/or modify
-it under the same terms as Perl itself.
-
-=cut
 
 1;

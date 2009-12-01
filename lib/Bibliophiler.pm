@@ -2,18 +2,12 @@ package Bibliophiler;
 
 use strict;
 use warnings;
+use 5.010;
 
 use Catalyst::Runtime 5.80;
 
-# Set flags and add plugins for the application
-#
-#         -Debug: activates the debug mode for very useful log messages
-#   ConfigLoader: will load the configuration from a Config::General file in the
-#                 application's home directory
-# Static::Simple: will serve static files from the application's root
-#                 directory
-
 use parent qw/Catalyst/;
+
 use Catalyst qw/
                  -Debug
                  ConfigLoader
@@ -24,17 +18,9 @@ use Catalyst qw/
                  Session
                  Session::State::Cookie
                  Session::Store::FastMmap
-/;
-our $VERSION = '0.01';
+               /;
 
-# Configure the application.
-#
-# Note that settings in bibliophiler.conf (or other external
-# configuration file that you set up manually) take precedence
-# over this when using ConfigLoader. Thus configuration
-# details given here can function as a default configuration,
-# with an external configuration file acting as an override for
-# local deployment.
+our $VERSION = '0.01';
 
 __PACKAGE__->config(
   name => 'Bibliophiler' ,
@@ -51,10 +37,10 @@ __PACKAGE__->config(
   'Plugin::Authentication' => {
     default => {
       credential => {
-        class              => 'Password' ,
-        password_field     => 'password' ,
-        password_type      => 'hashed'   ,
-        password_hash_type => 'SHA-1'    ,
+        class                    => 'Password' ,
+        password_field           => 'password' ,
+        password_type            => 'hashed'   ,
+        password_hash_type        => 'SHA-1'    ,
       } ,
       store => {
         class                     => 'DBIx::Class' ,
@@ -67,13 +53,15 @@ __PACKAGE__->config(
   } ,
 );
 
-# Start the application
 __PACKAGE__->setup();
 
+1;
+
+__END__
 
 =head1 NAME
 
-Bibliophiler - Catalyst based application
+Bibliophiler - Read, track, enjoy.
 
 =head1 SYNOPSIS
 
@@ -81,7 +69,7 @@ Bibliophiler - Catalyst based application
 
 =head1 DESCRIPTION
 
-[enter your description here]
+DB-backed web app to track books you've read.
 
 =head1 SEE ALSO
 
@@ -89,13 +77,9 @@ L<Bibliophiler::Controller::Root>, L<Catalyst>
 
 =head1 AUTHOR
 
-John SJ Anderson
+John SJ Anderson C<<genehack@genehack.org>>
 
 =head1 LICENSE
 
 This library is free software. You can redistribute it and/or modify
 it under the same terms as Perl itself.
-
-=cut
-
-1;
