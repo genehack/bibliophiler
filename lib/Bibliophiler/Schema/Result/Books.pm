@@ -17,13 +17,13 @@ __PACKAGE__->table( 'books' );
 __PACKAGE__->add_columns(
   'id'    => { data_type => 'INTEGER' , is_auto_increment => 1 } ,
   'title' => { data_type => 'VARCHAR' , size => 255 } ,
-  'isbn'  => { data_type => 'VARCHAR' , size => 13 } ,
+  'isbn'  => { data_type => 'VARCHAR' , size => 13 , is_nullable => 1 } ,
   'pages' => { data_type => 'INTEGER' , is_nullable => 1 } ,
 );
 
 __PACKAGE__->set_primary_key( 'id' );
 
-__PACKAGE__->add_unique_constraint([ 'isbn'  ]);
+#__PACKAGE__->add_unique_constraint([ 'isbn'  ]);
 
 __PACKAGE__->has_many(
   'author_books' => 'Bibliophiler::Schema::Result::AuthorBooks' ,
