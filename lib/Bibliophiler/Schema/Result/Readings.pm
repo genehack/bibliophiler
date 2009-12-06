@@ -22,7 +22,7 @@ __PACKAGE__->add_columns(
   'user_id'       => { data_type => 'INTEGER'  } ,
   'book_id'       => { data_type => 'INTEGER'  } ,
   'start'         => { data_type => 'DATE'     } ,
-  'finish'        => { data_type => 'DATE'     } ,
+  'finish'        => { data_type => 'DATE'     , is_nullable => 1 } ,
   'last_modified' => {
     data_type     => 'DATETIME' ,
     set_on_create => 1          ,
