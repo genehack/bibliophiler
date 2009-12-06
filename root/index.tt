@@ -1,1 +1,26 @@
-  this will be a list of recently finished books
+<ul>
+[%- total_duration = 0 %][%- total_pages = 0 %]
+[%- FOREACH r IN readings %]
+   [%- authors = [] %]
+   [%- FOREACH a IN r.book.authors %]
+     [%- author = a.fname _ ' ' _ a.lname %]
+     [%- authors.push( author ) %]
+   [%- END %]
+   [%- author_list = authors.join( ' &amp; ' ) %]
+   [%- IF r.duration.days %]
+     [%- duration = r.duration.days + 1 %]
+     [%- total_duration = total_duration + duration %]
+     [%- total_pages = total_pages + r.book.pages %]
+   [%- ELSE %]
+     [%- duration = undef %]
+   [%- END %]
+   <li>
+   [%- r.book.title %] ([% r.book.pages %] pages) by [% author_list  %]
+    read by [% r.reader.username %] from [% r.start %] to [% r.finish %]
+   ([% duration %] day[% IF duration != 1 %]s[% END %])
+   </li>
+[%- END %]
+</ul>
+
+<h2>TOTAL READING TIME: [% total_duration %] days</h2>
+<h2>TOTAL PAGES READ: [% total_pages %] pages</h2>

@@ -11,6 +11,10 @@ __PACKAGE__->config->{namespace} = '';
 sub index :Path :Args(0) {
   my ( $self, $c ) = @_;
 
+  $c->stash->{readings} = [ $c->model( 'DB::Readings' )->search(
+    undef , { order_by => { -desc => 'finish' } }
+  )->all ];
+
   $c->stash->{template} = 'index.tt';
 }
 
