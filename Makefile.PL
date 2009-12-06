@@ -25,6 +25,11 @@ requires 'Catalyst::Authentication::Store::DBIx::Class';
 
 requires 'DBIx::Class::TimeStamp';
 
+requires 'HTML::FormHandler::Moose';
+requires 'HTML::FormHandler::Model::DBIC';
+requires 'HTML::FormHandler::Render::Table';
+requires 'Digest';
+
 catalyst;
 
 install_script glob('script/*.pl');
