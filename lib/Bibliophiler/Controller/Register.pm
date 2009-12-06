@@ -1,46 +1,36 @@
 package Bibliophiler::Controller::Register;
 
-use strict;
-use warnings;
-use 5.010;
+use Moose;
+BEGIN { extends 'Catalyst::Controller' }
 
-use parent 'Catalyst::Controller::HTML::FormFu';
+use Bibliophiler::Form::Register;
 
-use Digest;
+has 'form' => (
+  isa     => 'Bibliophiler::Form::Register' ,
+  is      => 'rw' ,
+  lazy    => 1 ,
+  default => sub { Bibliophiler::Form::Register-> new } ,
+);
 
-sub index :Path :FormConfig {
+sub index :Path {
   my( $self , $c ) = @_;
 
-  my $form = $c->stash->{form};
+  $c->stash(
+    form     => $self->form         ,
+    template => 'register/index.tt' ,
+  );
 
-  if ( $form->submitted_and_valid ) {
-    my $params = $c->request->body_params;
+  my $form = $self->form;
 
-    my $username = $params->{email};
+  return unless $form->process(
+    params => $c->request->parameters ,
+    schema => $c->model( 'DB' )->schema ,
+  );
 
-    my $users_rs = $c->model( 'DB::Users' );
+  $c->stash->{username} = $form->values->{username};
+  $c->stash->{message}  = 'Account created. Please log in.';
 
-    my $pass1 = $params->{password1} or die "Need password";
-    my $pass2 = $params->{password2} or die "Need to confirm password";
-
-    $pass1 eq $pass2 or die "Passwords don't match";
-
-    my $sha = Digest->new( 'SHA-1' );
-    $sha->add( $pass1 );
-    $pass1 = $sha->hexdigest();
-
-    my $user;
-    eval { $user = $users_rs->create({ username => $username , password => $pass1 }) };
-    if ( $@ ) {
-      $c->stash->{message} = $@;
-      $c->detach;
-    }
-
-    $c->stash->{username} = $user->username;
-    $c->stash->{message}  = 'Account created. Please log in.';
-
-    $c->forward( 'Bibliophiler::Controller::Root' , 'index' );
-  }
+  $c->forward( 'Bibliophiler::Controller::Root' , 'index' );
 }
 
 1;
