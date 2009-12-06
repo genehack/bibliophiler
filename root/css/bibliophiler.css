@@ -18,3 +18,13 @@ a.box {
    padding: 30px;
    text-decoration: none;
 }
+
+tr.error { height: 35px; }
+
+.error_message {
+   background: #fcc;
+   border: 1px solid #f00;
+   color: #ff0000;
+   margin: 5px;
+   padding: 5px;
+}
