@@ -1,0 +1,5 @@
+<ul>
+[% FOREACH book IN books %]
+   <li>[% book.title %]</li>
+[% END %]
+</ul>
