@@ -1,10 +1,8 @@
 package Bibliophiler::Controller::Root;
 
-use strict;
-use warnings;
-use 5.010;
-
-use parent 'Catalyst::Controller';
+use Moose;
+use namespace::autoclean;
+BEGIN { extends 'Catalyst::Controller::ActionRole' }
 
 __PACKAGE__->config->{namespace} = '';
 
@@ -18,29 +16,19 @@ sub index :Path :Args(0) {
   $c->stash->{template} = 'index.tt';
 }
 
-sub login :Local {
-  my( $self , $c ) = @_;
-
-  if ( $c->request->method eq 'POST' ) {
-    $c->authenticate( $c->request->body_params );
-  }
-
-  $c->response->redirect( $c->uri_for( '/' ));
-}
-
-sub logout :Local {
-  my( $self , $c ) = @_;
-
-  $c->logout();
-  $c->stash->{message} = 'You have been logged out.';
-  $c->forward( 'index' );
-}
-
 sub default :Path {
   my ( $self, $c ) = @_;
 
   $c->response->body( 'Page not found' );
   $c->response->status(404);
+}
+
+sub hello :Local Does('NeedsLogin') {
+  my( $self , $c ) = @_;
+
+  my $username = $c->user->username;
+
+  $c->response->body( "<h2>hello $username</h2>" );
 }
 
 sub end : ActionClass('RenderView') {}

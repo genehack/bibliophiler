@@ -13,6 +13,8 @@ use Catalyst qw/
                  ConfigLoader
                  Static::Simple
 
+                 +CatalystX::SimpleLogin
+
                  Authentication
                  Authorization::Roles
                  Session
@@ -50,6 +52,12 @@ __PACKAGE__->config(
         use_userdata_from_session => 0 ,
       } ,
     } ,
+  } ,
+  'Controller::Login' => {
+    traits => [ 'Logout' , 'WithRedirect' ] ,
+  } ,
+  'Plugin::Session' => {
+    flash_to_stash => 1 ,
   } ,
 );
 
