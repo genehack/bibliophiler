@@ -1,11 +1,5 @@
-[% IF c.user %]
-<div style="text-align:right;">
-  <h2>author cloud</h2>
-
-  <h2>tag cloud</h2>
-
-</div>
-[% ELSIF ! disable_registration_and_login_forms %]
+[% disable_registration_and_login_forms = 1 %]
+[% error_msg %]
 <form id=login_form method=post action=[% c.uri_for( '/login' ) %]
       style="background: blue; color: white; padding: 30px; margin-bottom: 50px;">
   <div style="font-size: 2em; padding-bottom: 10px">login to your account</div>
@@ -27,6 +21,3 @@
     </tr>
   </table>
 </form>
-
-<a class=box href="[% c.uri_for( '/register' ) %]">register for an account</a>
-[% END %]
