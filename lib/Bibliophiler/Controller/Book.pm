@@ -1,31 +1,74 @@
 package Bibliophiler::Controller::Book;
 
-use strict;
-use warnings;
-use 5.010;
+use Moose;
+BEGIN { extends 'Catalyst::Controller' }
 
-use parent 'Catalyst::Controller::HTML::FormFu';
+use Bibliophiler::Form::Book;
 
-sub add :Local :FormConfig {
+has 'form' => (
+  isa     => 'Bibliophiler::Form::Book' ,
+  is      => 'rw' ,
+  lazy    => 1 ,
+  default => sub { Bibliophiler::Form::Book->new } ,
+);
+
+sub root :Chained('/') PathPart('book') CaptureArgs(0) {
   my( $self , $c ) = @_;
 
-  my $form = $c->stash->{form};
+  $c->stash->{model} = $c->model( 'DB::Books' );
+}
 
-  if ( $form->submitted_and_valid ) {
-    my $value;
+sub base :Chained('root') PathPart('') CaptureArgs(1) {
+  my( $self , $c , $id ) = @_;
 
-    if ( $value = $form->param( 'submit_now' )) {
+  $c->stash->{id} = $id;
 
-    }
-    elsif ( $value = $form->param( 'submit_later' )) {
+}
 
-    }
-    else { $value = 'wtf' }
+sub view :Chained('base') PathPart('') Args(0) {
+  my( $self , $c ) = @_;
 
-    $c->response->body( $value );
-    $c->detach;
+  my $id = $c->stash->{id};
 
-  }
+  $c->response->body( "View page for ID $id" );
+}
+
+sub edit :Chained('base') PathPart('edit') Args(0) {
+  my( $self , $c ) = @_;
+
+  my $id = $c->stash->{id};
+
+  $c->response->body( "Edit page for ID $id" );
+}
+
+sub start_reading :Chained('base') PathPart('start') Args(0) {
+  my( $self , $c ) = @_;
+
+  my $id = $c->stash->{id};
+
+  $c->response->body( "start reading ID $id" );
+}
+
+sub view_all :Chained('root') PathPart('') Args(0) {
+  my( $self , $c ) = @_;
+
+  $c->response->body( "View all books" );
+}
+
+sub add :Local {
+  my( $self , $c ) = @_;
+
+  $c->stash(
+    form     => $self->form         ,
+    template => 'register/index.tt' ,
+  );
+
+  my $form = $self->form;
+
+  return unless $form->process(
+    params => $c->request->parameters ,
+    schema => $c->model( 'DB' )->schema ,
+  );
 }
 
 1;
