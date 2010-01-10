@@ -14,8 +14,6 @@ __PACKAGE__->load_components(
 
 __PACKAGE__->table( 'authors' );
 
-__PACKAGE__->resultset_class( 'Bibliophiler::Schema::ResultSet::Authors' );
-
 __PACKAGE__->add_columns(
   'id'    => { data_type => 'INTEGER' , is_auto_increment => 1 } ,
   'lname' => { data_type => 'TEXT'    , size => 255 } ,

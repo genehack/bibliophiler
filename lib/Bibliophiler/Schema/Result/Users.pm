@@ -16,8 +16,6 @@ __PACKAGE__->load_components(
 
 __PACKAGE__->table( 'users' );
 
-__PACKAGE__->resultset_class( 'Bibliophiler::Schema::ResultSet::Users' );
-
 __PACKAGE__->add_columns(
   'id'            => { data_type => 'INTEGER'  , is_auto_increment => 1 } ,
   'username'      => { data_type => 'TEXT'     } ,
