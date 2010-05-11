@@ -6,7 +6,7 @@ use 5.010;
 
 use Catalyst::Runtime 5.80;
 
-use parent qw/Catalyst/;
+use parent 'Catalyst';
 
 use Catalyst qw/
                  -Debug
